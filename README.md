@@ -6,11 +6,15 @@
 
 # To deploy a VM using Helm chart, execute below command on your Dev machine:
 #This is to test the render of the manifest files which are going to get executed on the cluster
+
 $helm3 install kubevirt-chart --dry-run --debug ./kubeVirt-chart
+
 $helm3 install kubevirt-chart ./kubeVirt-chart
 
 Once above command executes successfully, you can check the status of vmi and svc in the cluster:
+
 $Kubectl get vmi -A
+
 $Kubectl get svc -A
 
 # Take the nodePort from above command of the service deployed to expose the VM and do ssh to the newly created VM:
