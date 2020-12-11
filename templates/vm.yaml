@@ -1,0 +1,22 @@
+apiVersion: kubevirt.io/v1alpha3
+kind: VirtualMachineInstance
+metadata:
+  name: {{ .Values.vmName.name }}
+spec:
+  domain:
+    devices:
+      disks:
+      - disk:
+          bus: virtio
+        name: seedpvcdisk
+    machine:
+      type: ""
+    resources:
+      requests:
+        memory: {{ .Values.resources.requests.memory }}
+  terminationGracePeriodSeconds: 0
+  volumes:
+  - name: seedpvcdisk
+    persistentVolumeClaim:
+      claimName:  {{ .Values.claimName.name }}
+status: {}
