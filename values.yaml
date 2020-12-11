@@ -1,0 +1,21 @@
+# Default values for single-vm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+claimName:
+  name: seed-vm1-disk
+
+vmName:
+  name: seed-vm1
+
+service:
+  name: vmi-seed-ssh-svc 
+  type: NodePort
+  targetPort: 22
+  nodePort: 30000
+  port: 27017
+  externalTrafficPolicy: Cluster
+
+resources:
+  requests:
+    memory: 16Gi

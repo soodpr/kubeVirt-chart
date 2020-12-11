@@ -1,0 +1,5 @@
+Next Steps:
+- SSH to the VM:
+  For SSH, the NodePort and Cluster IP are required, below is the command used:
+  `ssh -i ~/.ssh/id_rsa <vm_username>@<Cluster_IP> -p <NODE_PORT>`
+
