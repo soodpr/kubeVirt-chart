@@ -1,0 +1,14 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: {{ .Values.dataVolume.name }}
+spec:
+  source:
+    registry:
+            url: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+  pvc:
+    accessModes:
+      - {{ .Values.dataVolume.accessMode }}
+    resources:
+      requests:
+        storage: {{ .Values.dataVolume.size }}

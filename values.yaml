@@ -3,8 +3,17 @@
 # Declare variables to be passed into your templates.
 
 claimName:
-  name: seed-vm1-disk
+  name: seed-datavolume
 
+dataVolume:
+  name: seed-datavolume
+  accessMode: ReadWriteOnce
+  size: 110Gi  
+image:
+  repository: docker://172.16.5.154:5000
+  name: seed
+  tag: v1.0
+  
 vmName:
   name: seed-vm1
 
