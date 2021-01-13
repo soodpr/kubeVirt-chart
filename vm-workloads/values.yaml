@@ -10,7 +10,7 @@ dataVolume:
   accessMode: ReadWriteOnce
   size: 110Gi  
 image:
-  repository: docker://172.16.5.154:5000
+  repository: docker://172.16.5.150:5000
   name: seed
   tag: v1.0
   
