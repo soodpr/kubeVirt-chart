@@ -2,6 +2,8 @@ apiVersion: kubevirt.io/v1alpha3
 kind: VirtualMachineInstance
 metadata:
   name: {{ .Values.vmName.name }}
+  labels:  
+    app.kubernetes.io/instance: vm-workloads
 spec:
   domain:
     devices:
@@ -10,7 +12,7 @@ spec:
           bus: virtio
         name: seedpvcdisk
     machine:
-      type: ""
+      type: "q35"
     resources:
       requests:
         memory: {{ .Values.resources.requests.memory }}
