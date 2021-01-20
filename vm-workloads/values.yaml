@@ -3,26 +3,26 @@
 # Declare variables to be passed into your templates.
 
 claimName:
-  name: seed-datavolume
+  name: seed-dv-1.0
 
 dataVolume:
-  name: seed-datavolume
+  name: seed-dv-1.0
   accessMode: ReadWriteOnce
   size: 110Gi  
 image:
   repository: docker://172.16.5.150:5000
   name: seed
-  tag: v1.1
+  tag: v1.0
   
 vmName:
-  name: seed-vm1
+  name: seed-vm-1.0
 
 service:
-  name: vmi-seed-ssh-svc 
+  name: seed-vm-svc 
   type: NodePort
   targetPort: 22
-  nodePort: 30000
-  port: 27017
+  nodePort: 31000
+  port: 27018
   externalTrafficPolicy: Cluster
 
 resources:
