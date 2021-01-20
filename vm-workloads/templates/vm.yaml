@@ -7,13 +7,13 @@ metadata:
     helm.sh/chart: {{ include "vm-workloads.chart" . }}
     vm.kubevirt.io/instance: {{ .Release.Name }}
     vm.kubevirt.io/managed-by: {{ .Release.Service }}
-  name: {{ include "vm-workloads.name" . }}
+  name: {{ .Values.vm.name }}
 spec:
   runStrategy: "RerunOnFailure"
   template:
     metadata:
       labels:
-        kubevirt.io/vm: {{ include "vm-workloads.name" . }}
+        kubevirt.io/vm: {{ .Values.vm.name }}
     spec:
       domain:
         devices:

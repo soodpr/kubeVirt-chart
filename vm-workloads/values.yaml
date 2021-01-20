@@ -2,20 +2,17 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-claimName:
-  name: seed-dv-1.1
-
 dataVolume:
-  name: seed-dv-1.1
+  name: seed-dv-1.0
   accessMode: ReadWriteOnce
   size: 110Gi  
 image:
   repository: docker://172.16.5.150:5000
   name: seed
-  tag: v1.1
+  tag: v1.0
   
-vmName:
-  name: seed-vm-1.0
+vm:
+  name: seed-vm
 
 service:
   name: seed-vm-svc 
