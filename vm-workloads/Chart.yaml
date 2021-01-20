@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: "1.0"
 description: A Helm chart for KubeVirt which deploys single vm
-name: kubevirt-chart
+name: vm-workloads
 
 # A chart can be either an 'application' or a 'library' chart.
 #

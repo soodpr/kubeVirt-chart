@@ -1,24 +1,41 @@
 apiVersion: kubevirt.io/v1alpha3
-kind: VirtualMachineInstance
+kind: VirtualMachine
 metadata:
-  name: {{ .Values.vmName.name }}
-  labels:  
-    app.kubernetes.io/instance: vm-workloads
+  creationTimestamp: null
+  labels:
+    special: {{ include "vm-workloads.name" . }}
+    helm.sh/chart: {{ include "vm-workloads.chart" . }}
+    vm.kubevirt.io/instance: {{ .Release.Name }}
+    vm.kubevirt.io/managed-by: {{ .Release.Service }}
+  name: {{ include "vm-workloads.name" . }}
 spec:
-  domain:
-    devices:
-      disks:
-      - disk:
-          bus: virtio
-        name: seedpvcdisk
-    machine:
-      type: "q35"
-    resources:
-      requests:
-        memory: {{ .Values.resources.requests.memory }}
-  terminationGracePeriodSeconds: 0
-  volumes:
-  - name: seedpvcdisk
-    persistentVolumeClaim:
-      claimName:  {{ .Values.claimName.name }}
-status: {}
+  runStrategy: "RerunOnFailure"
+  template:
+    metadata:
+      labels:
+        kubevirt.io/vm: {{ include "vm-workloads.name" . }}
+    spec:
+      domain:
+        devices:
+          disks:
+          - disk:
+              bus: virtio
+            name: datavolumedisk1
+          - disk:
+              bus: virtio
+            name: cloudinitdisk
+        machine:
+          type: ""
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory }}
+      terminationGracePeriodSeconds: 0
+      volumes:
+      - dataVolume:
+          name: {{ .Values.dataVolume.name }}
+        name: datavolumedisk1
+      - cloudInitNoCloud:
+          userData: |
+            # add any custom logic you want to occur on startup here.
+            echo “cloud-init script execution"     
+        name: cloudinitdisk
