@@ -25,3 +25,4 @@ service:
 resources:
   requests:
     memory: 16Gi
+    cpu: 2
