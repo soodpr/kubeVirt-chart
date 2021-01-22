@@ -7,7 +7,7 @@ metadata:
     helm.sh/chart: {{ include "vm-workloads.chart" . }}
     vm.kubevirt.io/instance: {{ .Release.Name }}
     vm.kubevirt.io/managed-by: {{ .Release.Service }}
-  name: {{ template "vm-workloads.fullname" . }}
+  name: {{ template "vm-workloads.fullname" . }}-{{ .Values.vm.name }}
 spec:
   runStrategy: "RerunOnFailure"
   template:
