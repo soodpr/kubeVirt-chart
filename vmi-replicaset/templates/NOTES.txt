@@ -1,0 +1,4 @@
+Next Steps:
+- serial console to VM using below command
+  `virtctl console <vmi_name>`
+

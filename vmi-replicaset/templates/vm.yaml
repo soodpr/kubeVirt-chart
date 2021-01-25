@@ -1,0 +1,50 @@
+apiVersion: kubevirt.io/v1alpha3
+kind: VirtualMachineInstanceReplicaSet
+metadata:
+  creationTimestamp: null
+  labels:
+    special: {{ include "vmi-replicaset.name" . }}
+    helm.sh/chart: {{ include "vmi-replicaset.chart" . }}
+    vm.kubevirt.io/instance: {{ .Release.Name }}
+    vm.kubevirt.io/managed-by: {{ .Release.Service }}
+  name: {{ template "vmi-replicaset.fullname" . }}-{{ .Values.vm.name }}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      kubevirt.io/vmReplicaSet: vmi-replicaset-seed
+  template:
+    metadata:
+      labels:	    
+        special: {{ include "vmi-replicaset.name" . }}
+        helm.sh/chart: {{ include "vmi-replicaset.chart" . }}
+        vm.kubevirt.io/instance: {{ .Release.Name }}
+        vm.kubevirt.io/managed-by: {{ .Release.Service }}
+        kubevirt.io/vmReplicaSet: vmi-replicaset-seed
+    spec:	
+      domain:
+        cpu:
+          cores: {{ .Values.resources.requests.cpu }}
+        devices:
+          disks:
+          - disk:
+              bus: virtio
+            name: containerdisk
+          - disk:
+              bus: virtio
+            name: cloudinitdisk
+        machine:
+          type: "q35"
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory }}
+      terminationGracePeriodSeconds: 0
+      volumes:
+      - containerDisk:
+          image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        name: containerdisk
+      - cloudInitNoCloud:
+          userData: |
+            # add any custom logic you want to occur on startup here.
+            echo “cloud-init script execution"
+        name: cloudinitdisk
